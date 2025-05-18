@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Confirmación de Compra</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #333;
+      color: white;
+      padding: 20px;
+    }
+    h1 {
+      margin-top: 30px;
+    }
+    .product-confirmation {
+      margin-top: 50px;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 80%;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .product-img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+    .button-container {
+      margin-top: 30px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #007BFF;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    footer {
+      background-color: #333;
+      color: white;
+      padding: 20px;
+      margin-top: 50px;
+      text-align: center;
+    }
+    .discount-container {
+      margin-top: 30px;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 80%;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .discount-container input {
+      padding: 10px;
+      width: 70%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .discount-container button {
+      padding: 10px 20px;
+      background-color: #28a745;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+    .discount-container button:hover {
+      background-color: #218838;
+    }
+    .discount-message {
+      margin-top: 20px;
+      font-size: 1.2em;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>¡Gracias por tu compra!</h1>
+  </header>
+
+  <div id="confirmation"></div>
+
+  <div class="discount-container">
+    <h4>¿Tienes un código de descuento?</h4>
+    <input type="text" id="discountCode" placeholder="Introduce tu código aquí" />
+    <button onclick="applyDiscount()">Aplicar Descuento</button>
+    <div id="discountMessage" class="discount-message"></div>
+  </div>
+
+  <div class="button-container">
+    <button onclick="window.location.href = 'index.html'">Volver a la tienda</button>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Fingerboard Store. Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+    // Obtener los datos de la compra almacenados en localStorage
+    const orderData = JSON.parse(localStorage.getItem('orderData'));
+    if (orderData) {
+      // Mostrar los datos de la compra en la página
+      document.getElementById('confirmation').innerHTML = `
+        <div class="product-confirmation">
+          <h3>Gracias por tu compra, ${orderData.name}!</h3>
+          <p>Hemos recibido tu pedido y se enviará a ${orderData.email}.</p>
+          <h4>Detalles de tu compra:</h4>
+          <ul>
+            ${orderData.products.map(product => `
+              <li>
+                <img src="${product.image}" alt="Imagen del producto" class="product-img"/>
+                <p><strong>${product.name}</strong></p>
+                <p>Color: ${product.color}</p>
+                <p>Precio: S/ ${product.price.toFixed(2)}</p>
+              </li>
+            `).join('')}
+          </ul>
+        </div>
+      `;
+      // Limpiar los datos del carrito una vez confirmada la compra
+      localStorage.removeItem('orderData');
+    } else {
+      document.getElementById('confirmation').innerHTML = `
+        <p>No se encontró información de compra.</p>
+      `;
+    }
+
+    function applyDiscount() {
+      const code = document.getElementById('discountCode').value.trim().toUpperCase();
+      const validCodes = {
+        "JEREMIAS30": 0.30,
+        "FINGER10": 0.10,
+        "VASCO30": 0.30
+      };
+      
+      const discountMessage = document.getElementById('discountMessage');
+      if (validCodes[code]) {
+        const discount = validCodes[code];
+        discountMessage.innerHTML = `¡Código ${code} aplicado! Descuento: ${discount * 100}%`;
+
+        // Aplicar el descuento a los productos
+        let totalAmount = 0;
+        orderData.products.forEach(product => {
+          totalAmount += product.price;
+        });
+
+        const discountedPrice = totalAmount - (totalAmount * discount);
+        discountMessage.innerHTML += `<br>Total con descuento: S/ ${discountedPrice.toFixed(2)}`;
+      } else {
+        discountMessage.innerHTML = "Código no válido. Intenta nuevamente.";
+        discountMessage.style.color = "red";
+      }
+    }
+  </script>
+</body>
+</html>
