@@ -1,0 +1,140 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #3a3a3a, #f4f4f4);
+    color: #333;
+    min-height: 100vh; /* Asegura que el fondo cubra toda la pantalla */
+}
+
+header {
+    background-color: #111;
+    color: white;
+    text-align: center;
+    padding: 50px 20px;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+header h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+header p {
+    font-size: 1.5em;
+    margin-top: 0;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    background-color: #222;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav a {
+    color: white;
+    padding: 20px;
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+nav a:hover {
+    background-color: #444;
+    transform: scale(1.1);
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin: 50px auto;
+    max-width: 1200px;
+}
+
+.product {
+    background-color: white;
+    border-radius: 15px;
+    padding: 25px;
+    width: 280px;
+    text-align: center;
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product:hover {
+    transform: translateY(-15px);
+    box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.2);
+}
+
+.product h3 {
+    color: #111;
+    font-size: 1.6em;
+    margin-top: 20px;
+}
+
+.product p {
+    color: #666;
+    font-size: 1.1em;
+    margin: 10px 0;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.product button {
+    background-color: #ff5722;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.product button:hover {
+    background-color: #e64a19;
+    transform: scale(1.05);
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+}
+
+#purchaseModal {
+    display: none;
+    text-align: center;
+    margin-top: 20px;
+}
+
+#purchaseModal input {
+    padding: 8px;
+    margin: 10px;
+    width: 80%;
+}
+
+#purchaseModal button {
+    background-color: #27ae60;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#purchaseModal button:hover {
+    background-color: #1f8447;
+} 
